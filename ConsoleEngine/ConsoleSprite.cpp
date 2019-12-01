@@ -1,134 +1,137 @@
 #include "ConsoleSprite.h"
-using namespace ConsoleEngine;
+using namespace console_engine;
 
-ConsoleEngine::ConsoleSprite::ConsoleSprite(const RawImage& Image)
-	: ConsoleObject("")
-	, image(Image)
+ConsoleSprite::ConsoleSprite(const RawImage& image)
+    : ConsoleObject("")
+    , _image(image)
 {
 }
 
-ConsoleEngine::ConsoleSprite::ConsoleSprite(const RawImage& Image, const ConsolePoint2D& Position)
-	: ConsoleObject("", Position)
-	, image(Image)
+ConsoleSprite::ConsoleSprite(
+    const RawImage& image,
+    const ConsolePoint2D& position
+)
+    : ConsoleObject("", position)
+    , _image(image)
 {
 }
 
-ConsoleEngine::ConsoleSprite::ConsoleSprite(const RawImage& Image, const int x, const int y)
-	: ConsoleObject("", x, y)
-	, image(Image)
+ConsoleSprite::ConsoleSprite(const RawImage& image, const int x, const int y)
+    : ConsoleObject("", x, y)
+    , _image(image)
 {
 }
 
-ConsoleEngine::ConsoleSprite::ConsoleSprite(const ConsoleImage& Image)
-	: ConsoleObject("")
-	, image(Image)
+ConsoleSprite::ConsoleSprite(const ConsoleImage& image)
+    : ConsoleObject("")
+    , _image(image)
 {
 }
 
-ConsoleEngine::ConsoleSprite::ConsoleSprite(ConsoleImage&& Image)
-	: ConsoleObject("")
-	, image(Image)
+ConsoleSprite::ConsoleSprite(ConsoleImage&& image)
+    : ConsoleObject("")
+    , _image(image)
 {
-	Image.~ConsoleImage();
+    image.~ConsoleImage();
 }
 
-const ConsoleSprite& ConsoleEngine::ConsoleSprite::operator=(const ConsoleImage& Image)
-{	// do not change "isTrigger" and "collider"
-	ConsoleObject::operator=(Image);
-	image = Image;
-	return*this;
+const ConsoleSprite& ConsoleSprite::operator=(const ConsoleImage& image)
+{    // do not change "isTrigger" and "collider"
+    ConsoleObject::operator=(image);
+    _image = image;
+    return*this;
 }
 
-ConsoleEngine::ConsoleSprite::ConsoleSprite(const ConsoleSprite& Sprite)
-	: ConsoleObject(Sprite)
-	,image(Sprite.image)
-	, isTrigger(Sprite.isTrigger)
-	, collider(Sprite.collider)
+ConsoleSprite::ConsoleSprite(const ConsoleSprite& sprite)
+    : ConsoleObject(sprite)
+    ,_image(sprite._image)
+    , _isTrigger(sprite._isTrigger)
+    , _collider(sprite._collider)
 {
 }
 
-ConsoleEngine::ConsoleSprite::ConsoleSprite(ConsoleSprite&& Sprite)
-	: ConsoleObject(Sprite)
-	, image(Sprite.image)
-	, isTrigger(Sprite.isTrigger)
-	, collider(Sprite.collider)
+ConsoleSprite::ConsoleSprite(ConsoleSprite&& sprite)
+    : ConsoleObject(sprite)
+    , _image(sprite._image)
+    , _isTrigger(sprite._isTrigger)
+    , _collider(sprite._collider)
 {
-	Sprite.~ConsoleSprite();
+    sprite.~ConsoleSprite();
 }
 
-const ConsoleSprite& ConsoleEngine::ConsoleSprite::operator=(const ConsoleSprite& Sprite)
+const ConsoleSprite& ConsoleSprite::operator=(const ConsoleSprite& sprite)
 {
-	ConsoleObject::operator=(Sprite);
-	image = Sprite.image;
-	isTrigger = Sprite.isTrigger;
-	collider = Sprite.collider;
-	return*this;
+    ConsoleObject::operator=(sprite);
+    _image = sprite._image;
+    _isTrigger = sprite._isTrigger;
+    _collider = sprite._collider;
+    return*this;
 }
 
-ConsoleSprite* ConsoleEngine::ConsoleSprite::GetClone() const
+ConsoleSprite* ConsoleSprite::GetClone() const
 {
-	ConsoleSprite* clone = new ConsoleSprite(*this);
-	return clone;
+    ConsoleSprite* clone = new ConsoleSprite(*this);
+    return clone;
 }
 
-const ConsoleImage& ConsoleEngine::ConsoleSprite::GetImage() const
+const ConsoleImage& ConsoleSprite::GetImage() const
 {
-	return image;
+    return _image;
 }
 
-const bool ConsoleEngine::ConsoleSprite::GetIsTrigger() const
+const bool ConsoleSprite::IsTrigger() const
 {
-	return isTrigger;
+    return _isTrigger;
 }
 
-const int ConsoleEngine::ConsoleSprite::GetColliderWidth() const
+const int ConsoleSprite::GetColliderWidth() const
 {
-	return collider.width;
+    return _collider.width;
 }
 
-const int ConsoleEngine::ConsoleSprite::GetColliderHeight() const
+const int ConsoleSprite::GetColliderHeight() const
 {
-	return collider.height;
+    return _collider.height;
 }
 
-const ConsolePoint2D& ConsoleEngine::ConsoleSprite::GetColliderStartPoint() const
+const ConsolePoint2D& ConsoleSprite::GetColliderStartPoint() const
 {
-	return collider.upperLeft;
+    return _collider.upperLeft;
 }
 
-ConsoleSprite& ConsoleEngine::ConsoleSprite::SetImgae(const ConsoleImage& Image)
+ConsoleSprite& ConsoleSprite::SetImgae(const ConsoleImage& image)
 {
-	image = Image;
-	return*this;
+    _image = image;
+    return*this;
 }
 
-ConsoleSprite& ConsoleEngine::ConsoleSprite::SetIsTrigger(const bool IsTrigger)
+ConsoleSprite& ConsoleSprite::SetIsTrigger(const bool isTrigger)
 {
-	isTrigger = IsTrigger;
-	return*this;
+    _isTrigger = isTrigger;
+    return*this;
 }
 
-ConsoleSprite& ConsoleEngine::ConsoleSprite::SetColliderWidth(const int Width)
+ConsoleSprite& ConsoleSprite::SetColliderWidth(const int width)
 {
-	collider.width = Width;
-	return*this;
+    _collider.width = width;
+    return*this;
 }
 
-ConsoleSprite& ConsoleEngine::ConsoleSprite::SetColliderHeight(const int Height)
+ConsoleSprite& ConsoleSprite::SetColliderHeight(const int height)
 {
-	collider.height = Height;
-	return*this;
+    _collider.height = height;
+    return*this;
 }
 
-ConsoleSprite& ConsoleEngine::ConsoleSprite::SetColliderStartPoint(const ConsolePoint2D& Point)
+ConsoleSprite& ConsoleSprite::SetColliderStartPoint(const ConsolePoint2D& point)
 {
-	collider.upperLeft = Point;
-	return*this;
+    _collider.upperLeft = point;
+    return*this;
 }
 
-const ConsoleSprite& ConsoleEngine::ConsoleSprite::Render() const
+const ConsoleSprite& ConsoleSprite::Render() const
 {
-	image.Render(position);
-	return*this;
+    _image.Render(_position);
+    return*this;
 }
 

@@ -3,192 +3,192 @@
 #include <iostream>
 
 ActionUnit::ActionUnit()
-	: name("DefaultPlayer")
-	, maximumLife(20)
-	, life(maximumLife)
-	, maximumMana(5)
-	, mana(maximumMana)
-	, attack(1)
-	, defensive(0)
-	, armor(0)
-	, image(RawImage({""}))
+    : _name("DefaultPlayer")
+    , _maximumLife(20)
+    , _life(_maximumLife)
+    , _maximumMana(5)
+    , _mana(_maximumMana)
+    , _attack(1)
+    , _defensive(0)
+    , _armor(0)
+    , _image(RawImage({""}))
 {
-	learnedSkills.push_back(Beat);
-	learnedSkills.push_back(Beat2);
-	learnedSkills.push_back(Beat3);
-	learnedSkills.push_back(Beat4);
+    _learnedSkills.push_back(Beat);
+    _learnedSkills.push_back(Beat2);
+    _learnedSkills.push_back(Beat3);
+    _learnedSkills.push_back(Beat4);
 }
 
-ActionUnit::ActionUnit(const std::string Name)
-	: image(RawImage({ "" }))
+ActionUnit::ActionUnit(const std::string name)
+    : _image(RawImage({ "" }))
 {
-	ActionUnit();
-	name = Name;
+    ActionUnit();
+    _name = name;
 }
 
-ActionUnit::ActionUnit(const ActionUnit& Unit)
-	: name(Unit.name)
-	, maximumLife(Unit.maximumLife)
-	, life(Unit.life)
-	, maximumMana(Unit.maximumMana)
-	, mana(Unit.mana)
-	, attack(Unit.attack)
-	, defensive(Unit.defensive)
-	, armor(0)
-	, learnedSkills(Unit.learnedSkills)
-	, image(Unit.image)
+ActionUnit::ActionUnit(const ActionUnit& unit)
+    : _name(unit._name)
+    , _maximumLife(unit._maximumLife)
+    , _life(unit._life)
+    , _maximumMana(unit._maximumMana)
+    , _mana(unit._mana)
+    , _attack(unit._attack)
+    , _defensive(unit._defensive)
+    , _armor(0)
+    , _learnedSkills(unit._learnedSkills)
+    , _image(unit._image)
 {
 }
 
-ActionUnit::ActionUnit(ActionUnit&& Unit)
-	: name(Unit.name)
-	, maximumLife(Unit.maximumLife)
-	, life(Unit.life)
-	, maximumMana(Unit.maximumMana)
-	, mana(Unit.mana)
-	, attack(Unit.attack)
-	, defensive(Unit.defensive)
-	, armor(0)
-	, learnedSkills(Unit.learnedSkills)
-	, image(RawImage({ "" }))
+ActionUnit::ActionUnit(ActionUnit&& unit)
+    : _name(unit._name)
+    , _maximumLife(unit._maximumLife)
+    , _life(unit._life)
+    , _maximumMana(unit._maximumMana)
+    , _mana(unit._mana)
+    , _attack(unit._attack)
+    , _defensive(unit._defensive)
+    , _armor(0)
+    , _learnedSkills(unit._learnedSkills)
+    , _image(RawImage({ "" }))
 {
-	Unit.~ActionUnit();
+    unit.~ActionUnit();
 }
 
-const ActionUnit& ActionUnit::operator=(const ActionUnit& Unit)
+const ActionUnit& ActionUnit::operator=(const ActionUnit& unit)
 {
-	if (this == &Unit)
-		return*this;
+    if (this == &unit)
+        return*this;
 
-	name = Unit.name;
-	maximumLife = Unit.maximumLife;
-	life = Unit.life;
-	maximumMana = Unit.maximumMana;
-	mana = Unit.mana;
-	attack = Unit.attack;
-	defensive = Unit.defensive;
-	armor = Unit.armor;
-	learnedSkills = Unit.learnedSkills;
-	return*this;
+    _name = unit._name;
+    _maximumLife = unit._maximumLife;
+    _life = unit._life;
+    _maximumMana = unit._maximumMana;
+    _mana = unit._mana;
+    _attack = unit._attack;
+    _defensive = unit._defensive;
+    _armor = unit._armor;
+    _learnedSkills = unit._learnedSkills;
+    return*this;
 }
 
 const std::string ActionUnit::GetName() const
 {
-	return name;
+    return _name;
 }
 
 const int ActionUnit::GetMaximumLife() const
 {
-	return maximumLife;
+    return _maximumLife;
 }
 
 const int ActionUnit::GetLife() const
 {
-	return life;
+    return _life;
 }
 
 const int ActionUnit::GetMaximumMana() const
 {
-	return maximumMana;
+    return _maximumMana;
 }
 
 const int ActionUnit::GetMana() const
 {
-	return mana;
+    return _mana;
 }
 
 const int ActionUnit::GetAttack() const
 {
-	return attack;
+    return _attack;
 }
 
 const int ActionUnit::GetDefensive() const
 {
-	return defensive;
+    return _defensive;
 }
 
 const int ActionUnit::GetCountOfSkill() const
 {
-	return learnedSkills.size();
+    return _learnedSkills.size();
 }
 
 const std::string ActionUnit::GetSkillName(const int number) const
 {
-	try{
-		if (number >= learnedSkills.size())
-			throw "out of range!";
-		else
-			return learnedSkills[number].Getname();
-	}
-	catch (std::string & msg) {
-		std::cerr << msg << std::endl;
-	}
+    try{
+        if (number >= _learnedSkills.size())
+            throw "out of range!";
+        else
+            return _learnedSkills[number].Getname();
+    }
+    catch (std::string & msg) {
+        std::cerr << msg << std::endl;
+    }
 }
 
 const ConsoleImage& ActionUnit::GetImage() const
 {
-	return image;
+    return _image;
 }
 
-ActionUnit& ActionUnit::SetName(const std::string Name)
+ActionUnit& ActionUnit::SetName(const std::string name)
 {
-	name = Name;
-	return*this;
+    _name = name;
+    return*this;
 }
 
-ActionUnit& ActionUnit::SetMaximumLife(const int MaximumLife)
+ActionUnit& ActionUnit::SetMaximumLife(const int maximumLife)
 {
-	maximumLife = MaximumLife;
-	return*this;
+    _maximumLife = maximumLife;
+    return*this;
 }
 
-ActionUnit& ActionUnit::SetLife(const int Life)
+ActionUnit& ActionUnit::SetLife(const int life)
 {
-	life = Life;
-	return*this;
+    _life = life;
+    return*this;
 }
 
-ActionUnit& ActionUnit::SetMaximumMana(const int Mana)
+ActionUnit& ActionUnit::SetMaximumMana(const int mana)
 {
-	mana = Mana;
-	return*this;
+    _mana = mana;
+    return*this;
 }
 
-ActionUnit& ActionUnit::SetAttack(const int Attack)
+ActionUnit& ActionUnit::SetAttack(const int attack)
 {
-	attack = Attack;
-	return*this;
+    _attack = attack;
+    return*this;
 }
 
-ActionUnit& ActionUnit::SetDefensive(const int Defensive)
+ActionUnit& ActionUnit::SetDefensive(const int defensive)
 {
-	defensive = Defensive;
-	return*this;
+    _defensive = defensive;
+    return*this;
 }
 
-ActionUnit& ActionUnit::SetImage(const RawImage& Image)
+ActionUnit& ActionUnit::SetImage(const RawImage& image)
 {
-	image = Image;
-	return*this;
+    _image = image;
+    return*this;
 }
 
-ActionUnit& ActionUnit::SetImage(const ConsoleImage& Image)
+ActionUnit& ActionUnit::SetImage(const ConsoleImage& image)
 {
-	image = Image;
-	return*this;
+    _image = image;
+    return*this;
 }
 
-ActionUnit& ActionUnit::AddSkill(const Skill newSkill)
+ActionUnit& ActionUnit::AddSkill(const Skill skill)
 {
-	learnedSkills.push_back(newSkill);
-	return*this;
+    _learnedSkills.push_back(skill);
+    return*this;
 }
 
 ActionUnit& ActionUnit::RemoveSkill(const Skill targetSkill)
 {
-	for (auto skill = learnedSkills.begin(); skill != learnedSkills.end(); ++skill) {
-		if (*skill == targetSkill)
-			learnedSkills.erase(skill);
-	}
-	return*this;
+    for (auto skill = _learnedSkills.begin(); skill != _learnedSkills.end(); ++skill) {
+        if (*skill == targetSkill)
+            _learnedSkills.erase(skill);
+    }
+    return*this;
 }

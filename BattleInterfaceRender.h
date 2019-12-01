@@ -2,40 +2,41 @@
 #include "ActionUnit.h"
 #include "BattleManager.h"
 #include "ConsoleEngine/ConsoleEngine.h"
-#include <string>
-using namespace ConsoleEngine;
 
 class BattleInterfaceRender
 {
 private:
-	BattleManager battleManager;
+    static short s_windowWidth;
+    static short s_indowHeight;
 
-	//	render layers
-	ConsoleScene interfaceFrame;
-	ConsoleScene actionUnitData;
-	ConsoleScene actionUnitImage;
-	ConsoleScene skills;
-	ConsoleScene slots;
+    BattleManager _battleManager;
 
-	//	shortcut pointer
-	ConsoleText* slot1;
-	ConsoleText* slot2;
-	ConsoleText* slot3;
-	ConsoleText* playerLife;
-	ConsoleText* enemyLife;
+    //  render layers
+    ConsoleScene _interfaceFrame;
+    ConsoleScene _actionUnitData;
+    ConsoleScene _actionUnitImage;
+    ConsoleScene _skills;
+    ConsoleScene _slots;
 
-	explicit BattleInterfaceRender();
+    //  shortcut pointer
+    ConsoleText* _slot1;
+    ConsoleText* _slot2;
+    ConsoleText* _slot3;
+    ConsoleText* _playerLife;
+    ConsoleText* _enemyLife;
+
+    explicit BattleInterfaceRender();
 public:
-	//	constructor
-	BattleInterfaceRender(const BattleManager& CurrentBattleManager);
+    //  constructor
+    BattleInterfaceRender(const BattleManager& battleManager);
 
-	//	render
-	void InitialRender()const;
-	void InterfaceFrame()const;
-	void ActionUnitImage()const;
-	void Skills()const;
+    //  render
+    void InitialRender()const;
+    void InterfaceFrame()const;
+    void ActionUnitImage()const;
+    void Skills()const;
 
-	//	update and render
-	void ActionUnitData();
-	void Slots();
+    //  update and render
+    void ActionUnitData();
+    void Slots();
 };

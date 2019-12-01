@@ -4,14 +4,14 @@
 #include <iostream>
 
 int main() {
-	Screen.SetSize(97, 32);
-	Screen.HideScrollBar();
-	Screen.SetTitle("Super Combo");
-	Screen.SetBackgroundColor(black);
-	Cursor.Hide();
+    Screen.SetSize(97, 32);
+    Screen.HideScrollBar();
+    Screen.SetTitle("Super Combo");
+    Screen.SetBackgroundColor((int)ConsoleColor::Black);
+    Cursor.Hide();
 
-	BattleManager battleManager;
-
-	getchar();
-	return 0;
+    BattleManager battleManager;
+    
+    getchar();
+    return 0;
 }

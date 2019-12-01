@@ -4,14 +4,20 @@
 
 class BattleManager
 {
-public:
-	ActionUnit player;
-	ActionUnit enemy;
-	std::vector<Skill>skillslot;
+private:
+    ActionUnit _player;
+    ActionUnit _enemy;
+    std::vector<Skill>_skillSlot;
 
 public:
-	BattleManager();
-	BattleManager(const BattleManager& Manager);
+    //  contrustor
+    BattleManager();
+    BattleManager(const BattleManager& Manager);
 
-	void Start();
+    //  get
+    const ActionUnit& GetPlayer()const;
+    const ActionUnit& GetEnemy()const;
+    const std::vector<Skill>& GetSkillSlot()const;
+
+    void Start();
 };

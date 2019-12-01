@@ -1,32 +1,53 @@
 #include "BattleManager.h"
 #include "BattleInterfaceRender.h"
-#include "SkillList.h"
+#include "SkillLibrary.h"
 
 BattleManager::BattleManager()
-	: player()
-	, enemy()
+    : _player()
+    , _enemy()
 {
-	skillslot.push_back(Empty);
-	skillslot.push_back(Empty);
-	skillslot.push_back(Empty);
-	RawImage image =
-	{
-		"$O$",
-		"/|\\",
-		"/$\\"
-	};
-	ConsoleImage cImage = image;
-	cImage.SetAllColor(black, yellow + light);
-	player.SetImage(cImage);
-	cImage.SetAllColor(black, red + light);
-	enemy.SetImage(cImage);
-	BattleInterfaceRender render(*this);
-	render.InitialRender();
+    _skillSlot.push_back(Empty);
+    _skillSlot.push_back(Empty);
+    _skillSlot.push_back(Empty);
+    RawImage image =
+    {
+        "$O$",
+        "/|\\",
+        "/$\\"
+    };
+    ConsoleImage cImage = image;
+    cImage.SetAllColor(
+        (int)ConsoleColor::Black,
+        (int)ConsoleColor::Yellow + (int)ConsoleColor::Light
+    );
+    _player.SetImage(cImage);
+    cImage.SetAllColor(
+        (int)ConsoleColor::Black,
+        (int)ConsoleColor::Red + (int)ConsoleColor::Light
+    );
+    _enemy.SetImage(cImage);
+    BattleInterfaceRender render(*this);
+    render.InitialRender();
 }
 
 BattleManager::BattleManager(const BattleManager& Manager)
-	: player(Manager.player)
-	, enemy(Manager.enemy)
-	, skillslot(Manager.skillslot)
+    : _player(Manager._player)
+    , _enemy(Manager._enemy)
+    , _skillSlot(Manager._skillSlot)
 {
+}
+
+const ActionUnit& BattleManager::GetPlayer() const
+{
+    return _player;
+}
+
+const ActionUnit& BattleManager::GetEnemy() const
+{
+    return _enemy;
+}
+
+const std::vector<Skill>& BattleManager::GetSkillSlot() const
+{
+    return _skillSlot;
 }
