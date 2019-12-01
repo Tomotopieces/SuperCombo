@@ -46,6 +46,12 @@ const ConsoleText& ConsoleText::operator=(const ConsoleText& Text)
 	return*this;
 }
 
+const ConsoleText& ConsoleEngine::ConsoleText::operator=(const std::string& Text)
+{
+	text = Text;
+	return*this;
+}
+
 ConsoleText* ConsoleEngine::ConsoleText::GetClone() const
 {
 	ConsoleText* clone = new ConsoleText(*this);

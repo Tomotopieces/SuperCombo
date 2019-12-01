@@ -1,18 +1,19 @@
 #pragma once
 #include "ConsoleObject.h"
+#include "ConsoleText.h"
 #include <vector>
 
 namespace ConsoleEngine
 {
 	using namespace ConsoleController;
 	class ConsoleButton
-		: public ConsoleObject
+		: public ConsoleText
 	{
 	private:
 		//	color
 		int defaultBackColor = light;
 		int defaultForeColor = black;
-		int inactiveBackColor = white;			//getMouse without get leftDown
+		int inactiveBackColor = white;			//	getMouse without get leftDown
 		int inactiveForeColor = black;
 		int activeBackColor = white + light;
 		int activeForeColor = black;
@@ -25,9 +26,14 @@ namespace ConsoleEngine
 		bool catchMouse = false;
 		bool available = true;
 		bool active = false;
+		bool draggable = false;		//	use Drag() instead of activateFunction() if true
+
+		RenderMode currentMode = Normal;
 
 		//	action
 		void(*activateFunction)();
+		int dragOffset = 0;
+		void Drag();
 
 		//	others
 		const bool CatchMouse();
@@ -39,12 +45,13 @@ namespace ConsoleEngine
 		ConsoleButton(const std::string Text, const ConsolePoint2D Position);
 		ConsoleButton(const std::string Text, const int x, const int y);
 		ConsoleButton(const std::string Text, void(*ActivateFunction)());
-		ConsoleButton(const ConsoleButton& option2);
-		ConsoleButton(ConsoleButton&& option2);
-		virtual const ConsoleButton& operator=(const ConsoleButton& option2);
+		ConsoleButton(const ConsoleButton& Button);
+		ConsoleButton(ConsoleButton&& Button);
+		virtual const ConsoleButton& operator=(const ConsoleButton& Button);
 
 		//	get
 		virtual ConsoleButton* GetClone()const override;
+		const bool GetDraggable()const;
 
 		//	set color
 		ConsoleButton& SetDefaultBackColor(int Color);
@@ -64,6 +71,7 @@ namespace ConsoleEngine
 
 		//	others
 		const ConsoleButton& UpdateState();
-		const ConsoleButton& Render()const override;
+		const ConsoleButton& SetDraggable(const bool Draggable);
+		//const ConsoleButton& Render()const override;
 	};
 }

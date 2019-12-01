@@ -22,9 +22,9 @@ public:
 	//	constructor
 	ActionUnit();
 	ActionUnit(const std::string Name);
-	ActionUnit(const ActionUnit& Player2);
-	ActionUnit(ActionUnit&& Player2);
-	const ActionUnit& operator=(const ActionUnit& Player2);
+	ActionUnit(const ActionUnit& Unit);
+	ActionUnit(ActionUnit&& Unit);
+	const ActionUnit& operator=(const ActionUnit& Unit);
 
 	//	get
 	const std::string GetName()const;

@@ -2,87 +2,92 @@
 using namespace ConsoleEngine;
 
 ConsoleButton::ConsoleButton(const std::string Text)
-	: ConsoleObject(Text)
+	: ConsoleText(Text)
 	, activateFunction([]() {})
 {
 }
 
 ConsoleButton::ConsoleButton(const std::string Text, const ConsolePoint2D Position)
-	: ConsoleObject(Text, Position)
+	: ConsoleText(Text, Position)
+	, activateFunction([]() {})
 {
 }
 
 ConsoleButton::ConsoleButton(const std::string Text, const int x, const int y)
-	: ConsoleObject(Text, x, y)
+	: ConsoleText(Text, x, y)
+	, activateFunction([]() {})
 {
 }
 
 ConsoleButton::ConsoleButton(const std::string Text, void(*ActivateFunction)())
-	: ConsoleObject(Text)
+	: ConsoleText(Text)
 	, activateFunction(ActivateFunction)
 {
 }
 
-ConsoleButton::ConsoleButton(const ConsoleButton& button2)
-	: ConsoleObject(button2)
-	, defaultBackColor(button2.defaultBackColor)
-	, defaultForeColor(button2.defaultForeColor)
-	, inactiveBackColor(button2.inactiveBackColor)
-	, inactiveForeColor(button2.inactiveForeColor)
-	, activeBackColor(button2.activeBackColor)
-	, activeForeColor(button2.activeForeColor)
-	, unavailableDefaultBackColor(button2.unavailableDefaultBackColor)
-	, unavailableDefaultForeColor(button2.unavailableDefaultForeColor)
-	, unavailableInactiveBackColor(button2.unavailableInactiveBackColor)
-	, unavailableInactiveForeColor(button2.unavailableInactiveForeColor)
-	, catchMouse(button2.catchMouse)
-	, active(button2.active)
-	, available(button2.available)
-	, activateFunction(button2.activateFunction)
+ConsoleButton::ConsoleButton(const ConsoleButton& Button)
+	: ConsoleText(Button)
+	, defaultBackColor(Button.defaultBackColor)
+	, defaultForeColor(Button.defaultForeColor)
+	, inactiveBackColor(Button.inactiveBackColor)
+	, inactiveForeColor(Button.inactiveForeColor)
+	, activeBackColor(Button.activeBackColor)
+	, activeForeColor(Button.activeForeColor)
+	, unavailableDefaultBackColor(Button.unavailableDefaultBackColor)
+	, unavailableDefaultForeColor(Button.unavailableDefaultForeColor)
+	, unavailableInactiveBackColor(Button.unavailableInactiveBackColor)
+	, unavailableInactiveForeColor(Button.unavailableInactiveForeColor)
+	, catchMouse(Button.catchMouse)
+	, active(Button.active)
+	, available(Button.available)
+	, draggable(Button.draggable)
+	, activateFunction(Button.activateFunction)
 {
 }
 
-ConsoleButton::ConsoleButton(ConsoleButton&& button2)
-	: ConsoleObject(button2)
-	, defaultBackColor(button2.defaultBackColor)
-	, defaultForeColor(button2.defaultForeColor)
-	, inactiveBackColor(button2.inactiveBackColor)
-	, inactiveForeColor(button2.inactiveForeColor)
-	, activeBackColor(button2.activeBackColor)
-	, activeForeColor(button2.activeForeColor)
-	, unavailableDefaultBackColor(button2.unavailableDefaultBackColor)
-	, unavailableDefaultForeColor(button2.unavailableDefaultForeColor)
-	, unavailableInactiveBackColor(button2.unavailableInactiveBackColor)
-	, unavailableInactiveForeColor(button2.unavailableInactiveForeColor)
-	, catchMouse(button2.catchMouse)
-	, active(button2.active)
-	, available(button2.available)
-	, activateFunction(button2.activateFunction)
+ConsoleButton::ConsoleButton(ConsoleButton&& Button)
+	: ConsoleText(Button)
+	, defaultBackColor(Button.defaultBackColor)
+	, defaultForeColor(Button.defaultForeColor)
+	, inactiveBackColor(Button.inactiveBackColor)
+	, inactiveForeColor(Button.inactiveForeColor)
+	, activeBackColor(Button.activeBackColor)
+	, activeForeColor(Button.activeForeColor)
+	, unavailableDefaultBackColor(Button.unavailableDefaultBackColor)
+	, unavailableDefaultForeColor(Button.unavailableDefaultForeColor)
+	, unavailableInactiveBackColor(Button.unavailableInactiveBackColor)
+	, unavailableInactiveForeColor(Button.unavailableInactiveForeColor)
+	, catchMouse(Button.catchMouse)
+	, active(Button.active)
+	, available(Button.available)
+	, draggable(Button.draggable)
+	, activateFunction(Button.activateFunction)
 {
-	button2.~ConsoleButton();
+	Button.~ConsoleButton();
 }
 
-const ConsoleButton& ConsoleButton::operator=(const ConsoleButton& button2)
+const ConsoleButton& ConsoleButton::operator=(const ConsoleButton& Button)
 {
-	if (this == &button2)
+	if (this == &Button)
 		return*this;
-	ConsoleObject::operator=(button2);
-	defaultBackColor = button2.defaultBackColor;
-	defaultForeColor = button2.defaultForeColor;
-	inactiveBackColor = button2.inactiveBackColor;
-	inactiveForeColor = button2.inactiveForeColor;
-	activeBackColor = button2.activeBackColor;
-	activeForeColor = button2.activeForeColor;
-	unavailableDefaultBackColor = button2.unavailableDefaultBackColor;
-	unavailableDefaultForeColor = button2.unavailableDefaultForeColor;
-	unavailableInactiveBackColor = button2.unavailableInactiveBackColor;
-	unavailableInactiveForeColor = button2.unavailableInactiveForeColor;
+	ConsoleText::operator=(Button);
+	defaultBackColor = Button.defaultBackColor;
+	defaultForeColor = Button.defaultForeColor;
+	inactiveBackColor = Button.inactiveBackColor;
+	inactiveForeColor = Button.inactiveForeColor;
+	activeBackColor = Button.activeBackColor;
+	activeForeColor = Button.activeForeColor;
+	unavailableDefaultBackColor = Button.unavailableDefaultBackColor;
+	unavailableDefaultForeColor = Button.unavailableDefaultForeColor;
+	unavailableInactiveBackColor = Button.unavailableInactiveBackColor;
+	unavailableInactiveForeColor = Button.unavailableInactiveForeColor;
 
-	catchMouse = button2.catchMouse;
-	active = button2.active;
-	available = button2.available;
+	catchMouse = Button.catchMouse;
+	active = Button.active;
+	available = Button.available;
+	draggable = Button.draggable;
 
-	activateFunction = button2.activateFunction;
+	activateFunction = Button.activateFunction;
 
 	return*this;
 }
@@ -91,6 +96,16 @@ ConsoleButton* ConsoleEngine::ConsoleButton::GetClone() const
 {
 	ConsoleButton* clone = new ConsoleButton(*this);
 	return clone;
+}
+
+const bool ConsoleEngine::ConsoleButton::GetDraggable() const
+{
+	return draggable;
+}
+
+void ConsoleEngine::ConsoleButton::Drag()
+{
+	SetPosition(Mouse.GetPosition().X - dragOffset, Mouse.GetPosition().Y);
 }
 
 const bool ConsoleButton::CatchMouse()
@@ -173,53 +188,50 @@ ConsoleButton& ConsoleButton::SetActivateFunction(void(*ActivateFunction)())
 
 const ConsoleButton& ConsoleButton::UpdateState()
 {
-	if (catchMouse && Mouse.GetLeftDown() && !active) {
-		if (available) {
-			active = true;
-			activateFunction();
+	if (available) {
+		if (catchMouse) {
+			if (Mouse.GetLeftDown()) {
+				backColor = activeBackColor;
+				foreColor = activeForeColor;
+				active = true;
+				if (draggable) {
+					dragOffset = Mouse.GetPosition().X - GetPosition().GetX();
+					Drag();
+				}
+				else
+					activateFunction();
+			}
+			else {
+				backColor = inactiveBackColor;
+				foreColor = inactiveForeColor;
+				active = false;
+			}
+		}
+		else {
+			backColor = defaultBackColor;
+			foreColor = defaultForeColor;
 		}
 	}
-	else if(!catchMouse || !Mouse.GetLeftDown())
-		active = false;
+	else {
+		if (catchMouse) {
+			backColor = unavailableInactiveBackColor;
+			foreColor = unavailableInactiveForeColor;
+		}
+		else {
+			backColor = unavailableDefaultBackColor;
+			foreColor = unavailableDefaultForeColor;
+		}
+	}
 
 	CatchMouse();
 
 	return*this;
 }
 
-const ConsoleButton& ConsoleButton::Render() const
+const ConsoleButton& ConsoleEngine::ConsoleButton::SetDraggable(const bool Draggable)
 {
-	int currentBackColor;
-	int currentForeColor;
-	if (available) {
-		if (catchMouse) {
-			if (active) {
-				currentBackColor = activeBackColor;
-				currentForeColor = activeForeColor;
-			}
-			else {
-				currentBackColor = inactiveBackColor;
-				currentForeColor = inactiveForeColor;
-			}
-		}
-		else {
-			currentBackColor = defaultBackColor;
-			currentForeColor = defaultForeColor;
-		}
-	}
-	else {
-		if (catchMouse) {
-			currentBackColor = unavailableInactiveBackColor;
-			currentForeColor = unavailableInactiveForeColor;
-		}
-		else {
-			currentBackColor = unavailableDefaultBackColor;
-			currentForeColor = unavailableDefaultForeColor;
-		}
-	}
-
-	Character.SetBackColor(currentBackColor);
-	Character.SetForeColor(currentForeColor);
-	ConsoleObject::Render();
+	if (draggable == Draggable)
+		return*this;
+	draggable = Draggable;
 	return*this;
 }

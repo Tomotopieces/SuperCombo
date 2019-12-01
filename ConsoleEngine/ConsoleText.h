@@ -4,12 +4,6 @@
 namespace ConsoleEngine
 {
 	using namespace ConsoleController;
-	enum RenderMode {
-		Normal = 0,
-		HorizontallyCentered = 1,
-		VerticallyCentered = 2,
-		PointCentered = 4
-	};
 
 	class ConsoleText
 		: public ConsoleObject
@@ -28,6 +22,7 @@ namespace ConsoleEngine
 		ConsoleText(const ConsoleText& Text);
 		ConsoleText(ConsoleText&& Text);
 		virtual const ConsoleText& operator=(const ConsoleText& Text);
+		virtual const ConsoleText& operator=(const std::string& Text);
 
 		//	get
 		virtual ConsoleText* GetClone()const override;

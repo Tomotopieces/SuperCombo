@@ -1,5 +1,5 @@
 #include "BattleManager.h"
-#include "Render.h"
+#include "BattleInterfaceRender.h"
 #include "SkillList.h"
 
 BattleManager::BattleManager()
@@ -20,8 +20,13 @@ BattleManager::BattleManager()
 	player.SetImage(cImage);
 	cImage.SetAllColor(black, red + light);
 	enemy.SetImage(cImage);
-	player.SetAttack(10);
-	enemy.SetLife(1);
 	BattleInterfaceRender render(*this);
-	render.Initialize();
+	render.InitialRender();
+}
+
+BattleManager::BattleManager(const BattleManager& Manager)
+	: player(Manager.player)
+	, enemy(Manager.enemy)
+	, skillslot(Manager.skillslot)
+{
 }

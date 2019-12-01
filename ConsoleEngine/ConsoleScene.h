@@ -9,7 +9,6 @@ namespace ConsoleEngine
 	{
 	private:
 		std::vector<ConsoleObject*> objectList;
-
 	public:
 		//	constructor
 		ConsoleScene();
@@ -19,6 +18,7 @@ namespace ConsoleEngine
 
 		//	get
 		virtual ConsoleScene* GetClone()const override;
+		ConsoleObject* operator[](const int number);	//	modifiable get element
 
 		//	add
 		ConsoleScene& AddObject(const ConsoleObject& newObject);

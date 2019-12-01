@@ -26,49 +26,49 @@ ActionUnit::ActionUnit(const std::string Name)
 	name = Name;
 }
 
-ActionUnit::ActionUnit(const ActionUnit& Player2)
-	: name(Player2.name)
-	, maximumLife(Player2.maximumLife)
-	, life(Player2.life)
-	, maximumMana(Player2.maximumMana)
-	, mana(Player2.mana)
-	, attack(Player2.attack)
-	, defensive(Player2.defensive)
+ActionUnit::ActionUnit(const ActionUnit& Unit)
+	: name(Unit.name)
+	, maximumLife(Unit.maximumLife)
+	, life(Unit.life)
+	, maximumMana(Unit.maximumMana)
+	, mana(Unit.mana)
+	, attack(Unit.attack)
+	, defensive(Unit.defensive)
 	, armor(0)
-	, learnedSkills(Player2.learnedSkills)
-	, image(RawImage({ "" }))
+	, learnedSkills(Unit.learnedSkills)
+	, image(Unit.image)
 {
 }
 
-ActionUnit::ActionUnit(ActionUnit&& Player2)
-	: name(Player2.name)
-	, maximumLife(Player2.maximumLife)
-	, life(Player2.life)
-	, maximumMana(Player2.maximumMana)
-	, mana(Player2.mana)
-	, attack(Player2.attack)
-	, defensive(Player2.defensive)
+ActionUnit::ActionUnit(ActionUnit&& Unit)
+	: name(Unit.name)
+	, maximumLife(Unit.maximumLife)
+	, life(Unit.life)
+	, maximumMana(Unit.maximumMana)
+	, mana(Unit.mana)
+	, attack(Unit.attack)
+	, defensive(Unit.defensive)
 	, armor(0)
-	, learnedSkills(Player2.learnedSkills)
+	, learnedSkills(Unit.learnedSkills)
 	, image(RawImage({ "" }))
 {
-	Player2.~ActionUnit();
+	Unit.~ActionUnit();
 }
 
-const ActionUnit& ActionUnit::operator=(const ActionUnit& Player2)
+const ActionUnit& ActionUnit::operator=(const ActionUnit& Unit)
 {
-	if (this == &Player2)
+	if (this == &Unit)
 		return*this;
 
-	name = Player2.name;
-	maximumLife = Player2.maximumLife;
-	life = Player2.life;
-	maximumMana = Player2.maximumMana;
-	mana = Player2.mana;
-	attack = Player2.attack;
-	defensive = Player2.defensive;
-	armor = Player2.armor;
-	learnedSkills = Player2.learnedSkills;
+	name = Unit.name;
+	maximumLife = Unit.maximumLife;
+	life = Unit.life;
+	maximumMana = Unit.maximumMana;
+	mana = Unit.mana;
+	attack = Unit.attack;
+	defensive = Unit.defensive;
+	armor = Unit.armor;
+	learnedSkills = Unit.learnedSkills;
 	return*this;
 }
 

@@ -37,6 +37,13 @@ ConsoleScene* ConsoleEngine::ConsoleScene::GetClone() const
 	return clone;
 }
 
+ConsoleObject* ConsoleEngine::ConsoleScene::operator[](const int number)
+{
+	if(number < objectList.size())
+		return objectList[number];
+	return nullptr;
+}
+
 ConsoleScene& ConsoleScene::AddObject(const ConsoleObject& newObject)
 {
 	objectList.push_back(newObject.GetClone());

@@ -11,6 +11,7 @@ public:
 
 public:
 	BattleManager();
+	BattleManager(const BattleManager& Manager);
 
 	void Start();
 };
