@@ -1,54 +1,54 @@
 #include "Skill.h"
 
 Skill::Skill()
-    : name("")
-    , effect([]() {})
+    : _name("")
+    , _effect([](BattleManager&) {})
 {
 }
 
-Skill::Skill(const std::string Name, void(*Effect)())
-    : name(Name)
-    , effect(Effect)
+Skill::Skill(const std::string name, void(*effect)(BattleManager&))
+    : _name(name)
+    , _effect(effect)
 {
 }
 
-Skill::Skill(const Skill& Skill2)
-    : name(Skill2.name)
-    , effect(Skill2.effect)
+Skill::Skill(const Skill& skill)
+    : _name(skill._name)
+    , _effect(skill._effect)
 {
 }
 
-Skill::Skill(Skill&& Skill2)
-    : name(Skill2.name)
-    , effect(Skill2.effect)
+Skill::Skill(Skill&& skill)
+    : _name(skill._name)
+    , _effect(skill._effect)
 {
-    Skill2.~Skill();
+    skill.~Skill();
 }
 
-const Skill& Skill::operator=(const Skill& Skill2)
+const Skill& Skill::operator=(const Skill& skill)
 {
-    if (this == &Skill2)
+    if (this == &skill)
         return*this;
-    name = Skill2.name;
-    effect = Skill2.effect;
+    _name = skill._name;
+    _effect = skill._effect;
     return*this;
 }
 
-const bool Skill::operator==(const Skill& Skill2)
+const bool Skill::operator==(const Skill& skill)
 {
-    if (this == &Skill2)
+    if (this == &skill)
         return true;
-    if(name == name)
+    if(_name == _name)
         return false;
 }
 
 const std::string Skill::Getname() const
 {
-    return name;
+    return _name;
 }
 
-const Skill& Skill::Launch() const
+const Skill& Skill::Launch(BattleManager& battleManager) const
 {
-    effect();
+    _effect(battleManager);
     return *this;
 }

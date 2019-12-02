@@ -96,24 +96,24 @@ ConsoleImage* ConsoleImage::GetClone() const
     return clone;
 }
 
-const int ConsoleImage::GetBackColor(
+const ConsoleColor ConsoleImage::GetBackColor(
     const ConsolePoint2D position
 )const
 {
     return _image[position.GetX()][position.GetY()].GetBackColor();
 }
 
-const int ConsoleImage::GetBackColor(const int x, const int y)const
+const ConsoleColor ConsoleImage::GetBackColor(const int x, const int y)const
 {
     return _image[x][y].GetBackColor();
 }
 
-const int ConsoleImage::GetForeColor(const ConsolePoint2D position)const
+const ConsoleColor ConsoleImage::GetForeColor(const ConsolePoint2D position)const
 {
     return _image[position.GetX()][position.GetY()].GetForeColor();
 }
 
-const int ConsoleImage::GetForeColor(const int x, const int y)const
+const ConsoleColor ConsoleImage::GetForeColor(const int x, const int y)const
 {
     return _image[x][y].GetForeColor();
 }
@@ -139,21 +139,29 @@ ConsoleImage& ConsoleImage::SetCharacter(
 
 ConsoleImage& ConsoleImage::SetColor(
     const ConsolePoint2D position,
-    const int backColor,
-    const int foreColor
+    const ConsoleColor backColor,
+    const ConsoleColor foreColor
 )
 {
     _image[position.GetX()][position.GetY()].SetBackColor(backColor).SetForeColor(foreColor);
     return*this;
 }
 
-ConsoleImage& ConsoleImage::SetColor(const int x, const int y, const int backColor, const int foreColor)
+ConsoleImage& ConsoleImage::SetColor(
+    const int x,
+    const int y,
+    const ConsoleColor backColor,
+    const ConsoleColor foreColor
+)
 {
     _image[x][y].SetBackColor(backColor).SetForeColor(foreColor);
     return*this;
 }
 
-ConsoleImage& ConsoleImage::SetAllColor(const int backColor, const int foreColor)
+ConsoleImage& ConsoleImage::SetAllColor(
+    const ConsoleColor backColor,
+    const ConsoleColor foreColor
+)
 {
     for (std::vector<ConsoleCharacter>& row : _image) {
         for (ConsoleCharacter& character : row) {

@@ -95,8 +95,7 @@ CONSOLE_SCREEN_BUFFER_INFO SCREEN::_screenBufferInfo = *(
     );
 SMALL_RECT SCREEN::_rect = *(new SMALL_RECT);
 COORD SCREEN::_coord = *(new COORD);
-int SCREEN::_backgroundColor = 
-    (int)ConsoleColor::Black;
+ConsoleColor SCREEN::_backgroundColor = ConsoleColor::Black;
 
 SCREEN::SCREEN()
 {
@@ -144,7 +143,7 @@ bool SCREEN::SetSize(short width, short height)
     return SetConsoleWindowInfo(_handle, true, &_rect);
 }
 
-int SCREEN::GetBackgroundColor()
+ConsoleColor SCREEN::GetBackgroundColor()
 {
     return _backgroundColor;
 }
@@ -155,7 +154,7 @@ bool SCREEN::Clean()
     DWORD dw;
     FillConsoleOutputAttribute(
         _handle,
-        WORD(_backgroundColor * 16),
+        WORD((int)_backgroundColor * 16),
         GetSize().X * GetSize().Y,
         _coord, &dw
     );
@@ -170,14 +169,8 @@ bool SCREEN::Clean()
 
 bool SCREEN::SetBackgroundColor(ConsoleColor color)
 {
-    _backgroundColor = (int)color;
-    return SetConsoleTextAttribute(_handle, WORD((int)color * 16));
-}
-
-bool SCREEN::SetBackgroundColor(int color)
-{
     _backgroundColor = color;
-    return SetConsoleTextAttribute(_handle, WORD(color * 16));
+    return SetConsoleTextAttribute(_handle, WORD((int)color * 16));
 }
 
 SCREEN Screen;
@@ -211,25 +204,10 @@ bool CHARACTER::SetForeColor(ConsoleColor color)
     return SetConsoleTextAttribute(_handle, WORD(_currentColor));
 }
 
-bool CHARACTER::SetForeColor(int color)
-{
-    _currentColor /= 16;
-    _currentColor *= 16;
-    _currentColor += color;
-    return SetConsoleTextAttribute(_handle, WORD(_currentColor));
-}
-
 bool CHARACTER::SetBackColor(ConsoleColor color)
 {
     _currentColor %= 16;
     _currentColor += int(color) * 16;
-    return SetConsoleTextAttribute(_handle, WORD(_currentColor));
-}
-
-bool CHARACTER::SetBackColor(int color)
-{
-    _currentColor %= 16;
-    _currentColor += color * 16;
     return SetConsoleTextAttribute(_handle, WORD(_currentColor));
 }
 

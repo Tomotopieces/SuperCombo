@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include "ActionUnit.h"
 #include "BattleManager.h"
 #include "ConsoleEngine/ConsoleEngine.h"
@@ -12,18 +13,29 @@ private:
     BattleManager _battleManager;
 
     //  render layers
-    ConsoleScene _interfaceFrame;
-    ConsoleScene _actionUnitData;
-    ConsoleScene _actionUnitImage;
-    ConsoleScene _skills;
-    ConsoleScene _slots;
+    ConsoleLayer _interfaceFrame;
+    ConsoleLayer _playerState;      //  player's name, life, mana
+    ConsoleLayer _playerState2;     //  player's atk, def, armor
+    ConsoleLayer _enemyState;       //  enemy's name, life, mana
+    ConsoleLayer _enemyState2;      //  enemy's atk, def, armor
+    ConsoleLayer _unitImage;
+    ConsoleLayer _skills;
+    ConsoleLayer _slots;
 
     //  shortcut pointer
-    ConsoleText* _slot1;
-    ConsoleText* _slot2;
-    ConsoleText* _slot3;
-    ConsoleText* _playerLife;
-    ConsoleText* _enemyLife;
+    ConsoleText* _pSlot1;
+    ConsoleText* _pSlot2;
+    ConsoleText* _pSlot3;
+    struct UnitShortcut
+    {
+        ConsoleText* pLife = nullptr;
+        ConsoleText* pMana = nullptr;
+        ConsoleText* pAttack = nullptr;
+        ConsoleText* pDefense = nullptr;
+        ConsoleText* pArmor = nullptr;
+    };
+    UnitShortcut _playerShortcut;
+    UnitShortcut _enemyShortcut;
 
     explicit BattleInterfaceRender();
 public:

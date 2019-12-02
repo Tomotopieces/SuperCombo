@@ -31,10 +31,10 @@ namespace console_engine
 
         //  get
         virtual ConsoleImage* GetClone()const override;
-        const int GetBackColor(const ConsolePoint2D position)const;
-        const int GetBackColor(const int x, const int y)const;
-        const int GetForeColor(const ConsolePoint2D position)const;
-        const int GetForeColor(const int x, const int y)const;
+        const ConsoleColor GetBackColor(const ConsolePoint2D position)const;
+        const ConsoleColor GetBackColor(const int x, const int y)const;
+        const ConsoleColor GetForeColor(const ConsolePoint2D position)const;
+        const ConsoleColor GetForeColor(const int x, const int y)const;
 
         //  set
         ConsoleImage& SetCharacter(
@@ -48,18 +48,18 @@ namespace console_engine
         );
         ConsoleImage& SetColor(
             const ConsolePoint2D position,
-            const int backColor,
-            const int foreColor
+            const ConsoleColor backColor,
+            const ConsoleColor foreColor
         );
         ConsoleImage& SetColor(
             const int x,
             const int y,
-            const int backColor,
-            const int foreColor
+            const ConsoleColor backColor,
+            const ConsoleColor foreColor
         );
         ConsoleImage& SetAllColor(
-            const int backColor,
-            const int foreColor
+            const ConsoleColor backColor,
+            const ConsoleColor foreColor
         );
 
         //  others

@@ -3,13 +3,13 @@
 #include <iostream>
 
 ActionUnit::ActionUnit()
-    : _name("DefaultPlayer")
+    : _name("DefaultName")
     , _maximumLife(20)
     , _life(_maximumLife)
     , _maximumMana(5)
     , _mana(_maximumMana)
     , _attack(1)
-    , _defensive(0)
+    , _defense(0)
     , _armor(0)
     , _image(RawImage({""}))
 {
@@ -33,7 +33,7 @@ ActionUnit::ActionUnit(const ActionUnit& unit)
     , _maximumMana(unit._maximumMana)
     , _mana(unit._mana)
     , _attack(unit._attack)
-    , _defensive(unit._defensive)
+    , _defense(unit._defense)
     , _armor(0)
     , _learnedSkills(unit._learnedSkills)
     , _image(unit._image)
@@ -47,7 +47,7 @@ ActionUnit::ActionUnit(ActionUnit&& unit)
     , _maximumMana(unit._maximumMana)
     , _mana(unit._mana)
     , _attack(unit._attack)
-    , _defensive(unit._defensive)
+    , _defense(unit._defense)
     , _armor(0)
     , _learnedSkills(unit._learnedSkills)
     , _image(RawImage({ "" }))
@@ -66,7 +66,7 @@ const ActionUnit& ActionUnit::operator=(const ActionUnit& unit)
     _maximumMana = unit._maximumMana;
     _mana = unit._mana;
     _attack = unit._attack;
-    _defensive = unit._defensive;
+    _defense = unit._defense;
     _armor = unit._armor;
     _learnedSkills = unit._learnedSkills;
     return*this;
@@ -102,9 +102,14 @@ const int ActionUnit::GetAttack() const
     return _attack;
 }
 
-const int ActionUnit::GetDefensive() const
+const int ActionUnit::GetDefense() const
 {
-    return _defensive;
+    return _defense;
+}
+
+const int ActionUnit::GetArmor() const
+{
+    return _armor;
 }
 
 const int ActionUnit::GetCountOfSkill() const
@@ -160,9 +165,9 @@ ActionUnit& ActionUnit::SetAttack(const int attack)
     return*this;
 }
 
-ActionUnit& ActionUnit::SetDefensive(const int defensive)
+ActionUnit& ActionUnit::SetDefense(const int defense)
 {
-    _defensive = defensive;
+    _defense = defense;
     return*this;
 }
 

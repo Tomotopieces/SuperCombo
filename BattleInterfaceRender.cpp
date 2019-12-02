@@ -1,5 +1,5 @@
-#include "BattleInterfaceRender.h"
 #include "ConsoleEngine/ConsoleEngine.h"
+#include "BattleInterfaceRender.h"
 using namespace console_engine;
 
 short BattleInterfaceRender::s_windowWidth = 97;
@@ -10,28 +10,28 @@ BattleInterfaceRender::BattleInterfaceRender(
 )
     : _battleManager(battleManager)
 {
-    //  render top and bottom line
+    //  top and bottom line
     std::string line;
     for (int i = 0; i < s_windowWidth - 1; ++i)
     {
         line += '=';
     }
     ConsoleText cLine = line;
-    cLine.SetForeColor((int)ConsoleColor::Cyan);
+    cLine.SetForeColor(ConsoleColor::Cyan);
     _interfaceFrame.AddObject(cLine, 1, 0).AddObject(cLine, 1, s_indowHeight);
 
-    //  render skill slot middle line
+    //  skill slot middle line
     line.clear();
     for (int i = 0; i < 16; ++i)
     {
         line += '=';
     }
     cLine = line;
-    cLine.SetForeColor((int)ConsoleColor::Cyan + (int)ConsoleColor::Light);
+    cLine.SetForeColor(ConsoleColor::LightCyan);
     _interfaceFrame.AddObject(cLine, 1, 23);
     _interfaceFrame.AddObject(cLine, s_windowWidth - 16, 23);
 
-    //  render slot frame
+    //  slot frame
     line.clear();
     for (int i = 0; i < 20; ++i)
     {
@@ -42,9 +42,8 @@ BattleInterfaceRender::BattleInterfaceRender(
     _interfaceFrame.AddObject(cLine, 39, 22).AddObject(cLine, 39, 24);
     _interfaceFrame.AddObject(cLine, 60, 22).AddObject(cLine, 60, 24);
 
-    //  add skill slot
-    ConsoleButton slot(_battleManager.GetSkillSlot()[0].Getname());
-    slot.SetDraggable(true);
+    //  skill slot
+    ConsoleText slot(_battleManager.GetSkillSlot()[0].Getname());
     slot.SetRenderMode(RenderMode::PointCentered);
     _slots.AddObject(slot, 28, 23);
     _slots.AddObject(            //  rename and then add
@@ -55,30 +54,73 @@ BattleInterfaceRender::BattleInterfaceRender(
         slot.SetText(_battleManager.GetSkillSlot()[2].Getname()),
         70, 23
     );
-    _slot1 = dynamic_cast<ConsoleText*>(_slots[0]);
-    _slot2 = dynamic_cast<ConsoleText*>(_slots[1]);
-    _slot3 = dynamic_cast<ConsoleText*>(_slots[2]);
+    _pSlot1 = dynamic_cast<ConsoleText*>(_slots[0]);
+    _pSlot2 = dynamic_cast<ConsoleText*>(_slots[1]);
+    _pSlot3 = dynamic_cast<ConsoleText*>(_slots[2]);
 
-    //  add player and enemy Life data
-    ConsoleText PlayerLife(
-        std::to_string(_battleManager.GetPlayer().GetLife()) + "/" + 
+    //  action unit data
+        //  player name
+    ConsoleText playerData(_battleManager.GetPlayer().GetName());
+    playerData.SetRenderMode(RenderMode::PointCentered);
+    _playerState.AddObject(playerData, 22, 9);
+        //  player life
+    playerData.SetText(
+        "Life: " +
+        std::to_string(_battleManager.GetPlayer().GetLife()) + "/" +
         std::to_string(_battleManager.GetPlayer().GetMaximumLife())
     );
-    PlayerLife.SetRenderMode(RenderMode::PointCentered);
-    ConsoleText EnemyLife(
-        std::to_string(_battleManager.GetEnemy().GetLife()) + "/" + 
+    _playerState.AddObject(playerData, 22, 10);
+    _playerShortcut.pLife = dynamic_cast<ConsoleText*>(_playerState[1]);
+        //  player mana
+    playerData.SetText(
+        "Mana: " +
+        std::to_string(_battleManager.GetPlayer().GetMana()) + "/" +
+        std::to_string(_battleManager.GetPlayer().GetMaximumMana())
+    );
+    _playerState.AddObject(playerData, 22, 11);
+    _playerShortcut.pMana = dynamic_cast<ConsoleText*>(_playerState[2]);
+
+    playerData.SetRenderMode(RenderMode::Normal);
+        //  player attack
+    playerData.SetText(
+        "Attack:  " +
+        std::to_string(_battleManager.GetPlayer().GetAttack())
+    );
+    _playerState2.AddObject(playerData, 5, 12);
+    _playerShortcut.pAttack = dynamic_cast<ConsoleText*>(_playerState2[0]);
+        //  player defense
+    playerData.SetText(
+        "Defense: " +
+        std::to_string(_battleManager.GetPlayer().GetDefense())
+    );
+    _playerState2.AddObject(playerData, 5, 13);
+    _playerShortcut.pDefense = dynamic_cast<ConsoleText*>(_playerState2[1]);
+        //  player armor
+    playerData.SetText(
+        "Armor:   " +
+        std::to_string(_battleManager.GetPlayer().GetArmor())
+    );
+    _playerState2.AddObject(playerData, 5, 14);
+    _playerShortcut.pArmor = dynamic_cast<ConsoleText*>(_playerState2[2]);
+
+        //  enemy name
+    ConsoleText enemyData(_battleManager.GetEnemy().GetName());
+    enemyData.SetRenderMode(RenderMode::PointCentered);
+    _enemyState.AddObject(enemyData, 75, 10);
+        //  enemy life
+    enemyData.SetText(
+        "Life: " +
+        std::to_string(_battleManager.GetEnemy().GetLife()) + "/" +
         std::to_string(_battleManager.GetEnemy().GetMaximumLife())
     );
-    EnemyLife.SetRenderMode(RenderMode::PointCentered);
-    _actionUnitData.AddObject(PlayerLife, 22, 17).AddObject(EnemyLife, 71, 17);
-    _playerLife = dynamic_cast<ConsoleText*>(_actionUnitData[0]);
-    _enemyLife = dynamic_cast<ConsoleText*>(_actionUnitData[1]);
+    _enemyState.AddObject(enemyData, 75, 11);
+    _enemyShortcut.pLife = dynamic_cast<ConsoleText*>(_enemyState[1]);
 
-    //  add player and enemy image
-    _actionUnitImage.AddObject(_battleManager.GetPlayer().GetImage(), 20, 18);
-    _actionUnitImage.AddObject(_battleManager.GetEnemy().GetImage(), 69, 18);
+    //  unit image
+    _unitImage.AddObject(_battleManager.GetPlayer().GetImage(), 20, 12);
+    _unitImage.AddObject(_battleManager.GetEnemy().GetImage(), 73, 12);
 
-    //  add optional skills
+    //  optional skills
     for (int i = 0; i < _battleManager.GetPlayer().GetCountOfSkill(); ++i)
     {
         ConsoleText skill(
@@ -92,8 +134,11 @@ BattleInterfaceRender::BattleInterfaceRender(
 void BattleInterfaceRender::InitialRender() const
 {
     _interfaceFrame.Render();
-    _actionUnitData.Render();
-    _actionUnitImage.Render();
+    _playerState.Render();
+    _playerState2.Render();
+    _enemyState.Render();
+    _enemyState2.Render();
+    _unitImage.Render();
     _slots.Render();
     _skills.Render();
 }
@@ -105,7 +150,7 @@ void BattleInterfaceRender::InterfaceFrame() const
 
 void BattleInterfaceRender::ActionUnitImage() const
 {
-    _actionUnitData.Render();
+    _unitImage.Render();
 }
 
 void BattleInterfaceRender::Skills() const
@@ -115,21 +160,47 @@ void BattleInterfaceRender::Skills() const
 
 void BattleInterfaceRender::ActionUnitData()
 {
-    _playerLife->SetText(
+    //  update data
+        //  player data
+    _playerShortcut.pLife->SetText(
         std::to_string(_battleManager.GetPlayer().GetLife()) + "/" + 
         std::to_string(_battleManager.GetPlayer().GetMaximumLife())
     );
-    _enemyLife->SetText(
+    _playerShortcut.pMana->SetText(
+        "Mana: " +
+        std::to_string(_battleManager.GetPlayer().GetMana()) + "/" +
+        std::to_string(_battleManager.GetPlayer().GetMaximumMana())
+    );
+    _playerShortcut.pAttack->SetText(
+        "Attack: \t" +
+        std::to_string(_battleManager.GetPlayer().GetAttack())
+    );
+    _playerShortcut.pDefense->SetText(
+        "Defense: \t" +
+        std::to_string(_battleManager.GetPlayer().GetDefense())
+    );
+    _playerShortcut.pArmor->SetText(
+        "Armor: \t" +
+        std::to_string(_battleManager.GetPlayer().GetArmor())
+    );
+
+        //  enemy data
+    _enemyShortcut.pLife->SetText(
         std::to_string(_battleManager.GetEnemy().GetLife()) + "/" +
         std::to_string(_battleManager.GetEnemy().GetMaximumLife())
     );
-    _actionUnitData.Render();
+
+    //  render
+    _playerState.Render();
+    _playerState2.Render();
+    _enemyState.Render();
+    _enemyState2.Render();
 }
 
 void BattleInterfaceRender::Slots()
 {
-    _slot1->SetText(_battleManager.GetSkillSlot()[0].Getname());
-    _slot2->SetText(_battleManager.GetSkillSlot()[1].Getname());
-    _slot3->SetText(_battleManager.GetSkillSlot()[2].Getname());
+    _pSlot1->SetText(_battleManager.GetSkillSlot()[0].Getname());
+    _pSlot2->SetText(_battleManager.GetSkillSlot()[1].Getname());
+    _pSlot3->SetText(_battleManager.GetSkillSlot()[2].Getname());
     _slots.Render();
 }

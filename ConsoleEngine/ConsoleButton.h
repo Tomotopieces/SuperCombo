@@ -9,19 +9,17 @@ namespace console_engine
     {
     private:
         //  color
-        int _defaultBackColor = (int)ConsoleColor::Light;
-        int _defaultForeColor = (int)ConsoleColor::Black;
+        ConsoleColor _defaultBackColor = ConsoleColor::Light;
+        ConsoleColor _defaultForeColor = ConsoleColor::Black;
             //  getMouse without get leftDown
-        int _inactiveBackColor = (int)ConsoleColor::White;
-        int _inactiveForeColor = (int)ConsoleColor::Black;
-        int _activeBackColor =
-            (int)ConsoleColor::White + (int)ConsoleColor::Light;
-        int _activeForeColor = (int)ConsoleColor::Black;
-        int _unavailableDefaultBackColor = (int)ConsoleColor::Red;
-        int _unavailableDefaultForeColor = (int)ConsoleColor::Black;
-        int _unavailableInactiveBackColor =
-            (int)ConsoleColor::Red + (int)ConsoleColor::Light;
-        int _unavailableInactiveForeColor = (int)ConsoleColor::Black;
+        ConsoleColor _inactiveBackColor = ConsoleColor::White;
+        ConsoleColor _inactiveForeColor = ConsoleColor::Black;
+        ConsoleColor _activeBackColor = ConsoleColor::LightWhite;
+        ConsoleColor _activeForeColor = ConsoleColor::Black;
+        ConsoleColor _unavailableDefaultBackColor = ConsoleColor::Red;
+        ConsoleColor _unavailableDefaultForeColor = ConsoleColor::Black;
+        ConsoleColor _unavailableInactiveBackColor = ConsoleColor::LightRed;
+        ConsoleColor _unavailableInactiveForeColor = ConsoleColor::Black;
 
         //  state
         bool _catchMouse = false;
@@ -54,16 +52,16 @@ namespace console_engine
         const bool IsDraggable()const;
 
         //  set color
-        ConsoleButton& SetDefaultBackColor(int color);
-        ConsoleButton& SetDefaultForeColor(int color);
-        ConsoleButton& SetInactiveBackColor(int color);
-        ConsoleButton& SetInactiveForeColor(int color);
-        ConsoleButton& SetActiveBackColor(int color);
-        ConsoleButton& SetActiveForeColor(int color);
-        ConsoleButton& SetUnavailableDefaultBackColor(int color);
-        ConsoleButton& SetUnavailableDefaultForeColor(int color);
-        ConsoleButton& SetUnavailableInactiveBackColor(int color);
-        ConsoleButton& SetUnavailableInactiveForeColor(int color);
+        ConsoleButton& SetDefaultBackColor(ConsoleColor color);
+        ConsoleButton& SetDefaultForeColor(ConsoleColor color);
+        ConsoleButton& SetInactiveBackColor(ConsoleColor color);
+        ConsoleButton& SetInactiveForeColor(ConsoleColor color);
+        ConsoleButton& SetActiveBackColor(ConsoleColor color);
+        ConsoleButton& SetActiveForeColor(ConsoleColor color);
+        ConsoleButton& SetUnavailableDefaultBackColor(ConsoleColor color);
+        ConsoleButton& SetUnavailableDefaultForeColor(ConsoleColor color);
+        ConsoleButton& SetUnavailableInactiveBackColor(ConsoleColor color);
+        ConsoleButton& SetUnavailableInactiveForeColor(ConsoleColor color);
 
         //  set state
         ConsoleButton& SetAvailable(const bool available);

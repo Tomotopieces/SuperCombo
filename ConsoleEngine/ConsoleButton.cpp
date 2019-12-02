@@ -128,61 +128,61 @@ const bool ConsoleButton::CatchMouse()
     return _catchMouse;
 }
 
-ConsoleButton& ConsoleButton::SetDefaultBackColor(int color)
+ConsoleButton& ConsoleButton::SetDefaultBackColor(ConsoleColor color)
 {
     _defaultBackColor = color;
     return*this;
 }
 
-ConsoleButton& ConsoleButton::SetDefaultForeColor(int color)
+ConsoleButton& ConsoleButton::SetDefaultForeColor(ConsoleColor color)
 {
     _defaultForeColor = color;
     return*this;
 }
 
-ConsoleButton& ConsoleButton::SetInactiveBackColor(int color)
+ConsoleButton& ConsoleButton::SetInactiveBackColor(ConsoleColor color)
 {
     _inactiveBackColor = color;
     return*this;
 }
 
-ConsoleButton& ConsoleButton::SetInactiveForeColor(int color)
+ConsoleButton& ConsoleButton::SetInactiveForeColor(ConsoleColor color)
 {
     _inactiveForeColor = color;
     return*this;
 }
 
-ConsoleButton& ConsoleButton::SetActiveBackColor(int color)
+ConsoleButton& ConsoleButton::SetActiveBackColor(ConsoleColor color)
 {
     _activeBackColor = color;
     return*this;
 }
 
-ConsoleButton& ConsoleButton::SetActiveForeColor(int color)
+ConsoleButton& ConsoleButton::SetActiveForeColor(ConsoleColor color)
 {
     _activeForeColor = color;
     return*this;
 }
 
-ConsoleButton& ConsoleButton::SetUnavailableDefaultBackColor(int color)
+ConsoleButton& ConsoleButton::SetUnavailableDefaultBackColor(ConsoleColor color)
 {
     _unavailableDefaultBackColor = color;
     return*this;
 }
 
-ConsoleButton& ConsoleButton::SetUnavailableDefaultForeColor(int color)
+ConsoleButton& ConsoleButton::SetUnavailableDefaultForeColor(ConsoleColor color)
 {
     _unavailableDefaultForeColor = color;
     return*this;
 }
 
-ConsoleButton& ConsoleButton::SetUnavailableInactiveBackColor(int color)
+ConsoleButton& ConsoleButton::SetUnavailableInactiveBackColor(ConsoleColor color)
 {
     _unavailableInactiveBackColor = color;
     return*this;
 }
 
-ConsoleButton& ConsoleButton::SetUnavailableInactiveForeColor(int color)
+ConsoleButton& ConsoleButton::SetUnavailableInactiveForeColor(ConsoleColor color)
 {
     _unavailableInactiveForeColor = color;
     return*this;

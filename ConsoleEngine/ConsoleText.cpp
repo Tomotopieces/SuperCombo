@@ -58,23 +58,23 @@ ConsoleText* console_engine::ConsoleText::GetClone() const
     return clone;
 }
 
-const int ConsoleText::GetBackColor() const
+const ConsoleColor ConsoleText::GetBackColor() const
 {
     return _backColor;
 }
 
-const int ConsoleText::GetForeColor() const
+const ConsoleColor ConsoleText::GetForeColor() const
 {
     return _foreColor;
 }
 
-ConsoleText& ConsoleText::SetBackColor(const int color)
+ConsoleText& ConsoleText::SetBackColor(const ConsoleColor color)
 {
     _backColor = color;
     return*this;
 }
 
-ConsoleText& ConsoleText::SetForeColor(const int color)
+ConsoleText& ConsoleText::SetForeColor(const ConsoleColor color)
 {
     _foreColor = color;
     return*this;

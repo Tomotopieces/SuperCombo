@@ -9,8 +9,8 @@ namespace console_engine
         : public ConsoleObject
     {
     private:
-        int _backColor = (int)ConsoleColor::Black;
-        int _foreColor = (int)ConsoleColor::Light;
+        ConsoleColor _backColor = ConsoleColor::Black;
+        ConsoleColor _foreColor = ConsoleColor::Light;
         RenderMode _currentMode = RenderMode::Normal;
 
         explicit ConsoleText();
@@ -26,12 +26,12 @@ namespace console_engine
 
         //  get
         virtual ConsoleText* GetClone()const override;
-        const int GetBackColor()const;
-        const int GetForeColor()const;
+        const ConsoleColor GetBackColor()const;
+        const ConsoleColor GetForeColor()const;
 
         //  set
-        ConsoleText& SetBackColor(const int color);
-        ConsoleText& SetForeColor(const int color);
+        ConsoleText& SetBackColor(const ConsoleColor color);
+        ConsoleText& SetForeColor(const ConsoleColor color);
         ConsoleText& SetRenderMode(const RenderMode mode);
 
         //  others

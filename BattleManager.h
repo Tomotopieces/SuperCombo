@@ -1,6 +1,6 @@
 #pragma once
-#include "ActionUnit.h"
 #include<vector>
+#include "ActionUnit.h"
 
 class BattleManager
 {
@@ -14,10 +14,11 @@ public:
     BattleManager();
     BattleManager(const BattleManager& Manager);
 
-    //  get
-    const ActionUnit& GetPlayer()const;
-    const ActionUnit& GetEnemy()const;
-    const std::vector<Skill>& GetSkillSlot()const;
+    //  get (modifiable)
+    ActionUnit& GetPlayer();
+    ActionUnit& GetEnemy();
+    std::vector<Skill>& GetSkillSlot();
 
+    //  other
     void Start();
 };

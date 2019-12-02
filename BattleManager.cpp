@@ -17,13 +17,13 @@ BattleManager::BattleManager()
     };
     ConsoleImage cImage = image;
     cImage.SetAllColor(
-        (int)ConsoleColor::Black,
-        (int)ConsoleColor::Yellow + (int)ConsoleColor::Light
+        ConsoleColor::Black,
+        ConsoleColor::LightYellow
     );
     _player.SetImage(cImage);
     cImage.SetAllColor(
-        (int)ConsoleColor::Black,
-        (int)ConsoleColor::Red + (int)ConsoleColor::Light
+        ConsoleColor::Black,
+        ConsoleColor::LightRed
     );
     _enemy.SetImage(cImage);
     BattleInterfaceRender render(*this);
@@ -37,17 +37,21 @@ BattleManager::BattleManager(const BattleManager& Manager)
 {
 }
 
-const ActionUnit& BattleManager::GetPlayer() const
+ActionUnit& BattleManager::GetPlayer()
 {
     return _player;
 }
 
-const ActionUnit& BattleManager::GetEnemy() const
+ActionUnit& BattleManager::GetEnemy()
 {
     return _enemy;
 }
 
-const std::vector<Skill>& BattleManager::GetSkillSlot() const
+std::vector<Skill>& BattleManager::GetSkillSlot()
 {
     return _skillSlot;
+}
+
+void BattleManager::Start()
+{
 }

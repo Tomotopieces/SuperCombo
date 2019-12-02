@@ -7,7 +7,7 @@ int main() {
     Screen.SetSize(97, 32);
     Screen.HideScrollBar();
     Screen.SetTitle("Super Combo");
-    Screen.SetBackgroundColor((int)ConsoleColor::Black);
+    Screen.SetBackgroundColor(ConsoleColor::Black);
     Cursor.Hide();
 
     BattleManager battleManager;

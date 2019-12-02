@@ -12,7 +12,14 @@ namespace  consolr_controller {
         Purple = 5,
         Yellow = 6,
         White = 7,
-        Light = 8
+        Light = 8,
+        LightBlue = 9,
+        LightGreen = 10,
+        LightCyan = 11,
+        LightRed = 12,
+        LightPurple = 13,
+        LightYellow = 14,
+        LightWhite = 15,
     };
 
     class MOUSE {
@@ -53,7 +60,7 @@ namespace  consolr_controller {
         static SMALL_RECT _rect;
         static COORD _coord;
 
-        static int _backgroundColor;
+        static ConsoleColor _backgroundColor;
     public:
         SCREEN();
 
@@ -63,9 +70,8 @@ namespace  consolr_controller {
         static bool FullScreen();    //  can not support Windows7
         static bool Window();
         static bool SetSize(short width, short height);
-        static int GetBackgroundColor();
+        static ConsoleColor GetBackgroundColor();
         static bool SetBackgroundColor(ConsoleColor color);
-        static bool SetBackgroundColor(int color);
         static bool Clean();
     };
     extern SCREEN Screen;
@@ -80,9 +86,7 @@ namespace  consolr_controller {
         static int GetForeColor();
         static int GetBackColor();
         static bool SetForeColor(ConsoleColor color);
-        static bool SetForeColor(int color);
         static bool SetBackColor(ConsoleColor color);
-        static bool SetBackColor(int color);
     };
     extern CHARACTER Character;
 }
