@@ -14,12 +14,14 @@ ConsoleSprite::ConsoleSprite(
     : ConsoleObject("", position)
     , _image(image)
 {
+    _image.SetPosition(position);
 }
 
 ConsoleSprite::ConsoleSprite(const RawImage& image, const int x, const int y)
     : ConsoleObject("", x, y)
     , _image(image)
 {
+    _image.SetPosition(x, y);
 }
 
 ConsoleSprite::ConsoleSprite(const ConsoleImage& image)
@@ -131,7 +133,7 @@ ConsoleSprite& ConsoleSprite::SetColliderStartPoint(const ConsolePoint2D& point)
 
 const ConsoleSprite& ConsoleSprite::Render() const
 {
-    _image.Render(_position);
+    _image.Render();
     return*this;
 }
 

@@ -15,7 +15,7 @@ namespace console_engine
 
     class ConsoleObject
     {
-    protected:
+    private:
         std::string _text;
         ConsolePoint2D _position = { 0,0 };
         explicit ConsoleObject();

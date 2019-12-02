@@ -1,7 +1,7 @@
-#include "Skill.h"
-#include "BattleManager.h"
-#include "ConsoleEngine/ConsoleEngine.h"
 #include <iostream>
+#include "ConsoleEngine/ConsoleEngine.h"
+#include "BattleManager.h"
+
 
 int main() {
     Screen.SetSize(97, 32);

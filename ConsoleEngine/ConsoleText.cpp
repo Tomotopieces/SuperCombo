@@ -48,7 +48,7 @@ const ConsoleText& ConsoleText::operator=(const ConsoleText& text)
 
 const ConsoleText& ConsoleText::operator=(const std::string& text)
 {
-    _text = text;
+    SetText(text);
     return*this;
 }
 
@@ -93,34 +93,34 @@ const ConsoleText& ConsoleText::Render() const
     
     switch (_currentMode) {
         case RenderMode::Normal:
-            Cursor.SetPosition(_position);
+            Cursor.SetPosition(GetPosition());
             break;
         case RenderMode::HorizontallyCentered:
             Cursor.SetPosition(
-                (Screen.GetSize().X - _text.size()) / 2,
-                _position.GetY()
+                (Screen.GetSize().X - GetText().size()) / 2,
+                GetPosition().GetY()
             );
             break;
         case RenderMode::VerticallyCentered:
             Cursor.SetPosition(
-                _position.GetX(),
+                GetPosition().GetX(),
                 Screen.GetSize().Y / 2
             );
             break;
         case RenderMode::CompletelyCentered:
             Cursor.SetPosition(
-                (Screen.GetSize().X - _text.size()) / 2,
+                (Screen.GetSize().X - GetText().size()) / 2,
                 Screen.GetSize().Y / 2
             );
             break;
         case RenderMode::PointCentered:
             Cursor.SetPosition(
-                GetPosition().GetX() - _text.size() / 2,
+                GetPosition().GetX() - GetText().size() / 2,
                 GetPosition().GetY()
             );
             break;
     }
 
-    std::cout << _text;
+    std::cout << GetText();
     return*this;
 }

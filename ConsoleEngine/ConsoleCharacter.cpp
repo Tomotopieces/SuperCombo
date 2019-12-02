@@ -6,7 +6,7 @@ ConsoleCharacter::ConsoleCharacter(const char character)
     : ConsoleText("")
     , _character(character)
 {
-    _text = _character;
+    SetText(std::to_string(_character));
 }
 
 ConsoleCharacter::ConsoleCharacter(
@@ -16,7 +16,7 @@ ConsoleCharacter::ConsoleCharacter(
     : ConsoleText("", position)
     , _character(character)
 {
-    _text = _character;
+    SetText(std::to_string(_character));
 }
 
 ConsoleCharacter::ConsoleCharacter(
@@ -27,21 +27,21 @@ ConsoleCharacter::ConsoleCharacter(
     : ConsoleText("", x, y)
     , _character(character)
 {
-    _text = _character;
+    SetText(std::to_string(_character));
 }
 
 ConsoleCharacter::ConsoleCharacter(const ConsoleCharacter& character)
     : ConsoleText(character)
     , _character(character._character)
 {
-    _text = _character;
+    SetText(std::to_string(_character));
 }
 
 ConsoleCharacter::ConsoleCharacter(ConsoleCharacter&& character)
     : ConsoleText(character)
     , _character(character._character)
 {
-    _text = _character;
+    SetText(std::to_string(_character));
     character.~ConsoleCharacter();
 }
 
@@ -51,7 +51,7 @@ const ConsoleCharacter& ConsoleCharacter::operator=(
 {
     if (this == &character)
         return*this;
-    _text = _character;
+    SetText(std::to_string(_character));
     ConsoleText::operator=(character);
     _character = character._character;
     return*this;

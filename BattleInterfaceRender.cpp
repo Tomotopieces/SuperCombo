@@ -2,7 +2,7 @@
 #include "ConsoleEngine/ConsoleEngine.h"
 using namespace console_engine;
 
-short BattleInterfaceRender::s_indowHeight = 97;
+short BattleInterfaceRender::s_windowWidth = 97;
 short BattleInterfaceRender::s_indowHeight = 32;
 
 BattleInterfaceRender::BattleInterfaceRender(

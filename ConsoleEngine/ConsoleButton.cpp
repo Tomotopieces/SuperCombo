@@ -121,9 +121,9 @@ void ConsoleButton::Drag()
 const bool ConsoleButton::CatchMouse()
 {
     _catchMouse = (
-        Mouse.GetPosition().Y == _position.GetY() &&
-        Mouse.GetPosition().X >= _position.GetX() &&
-        Mouse.GetPosition().X <= (_position.GetX() + _text.length())
+        Mouse.GetPosition().Y == GetPosition().GetY() &&
+        Mouse.GetPosition().X >= GetPosition().GetX() &&
+        Mouse.GetPosition().X <= (GetPosition().GetX() + GetText().length())
         );
     return _catchMouse;
 }

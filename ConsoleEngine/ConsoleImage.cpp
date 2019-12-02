@@ -167,7 +167,7 @@ ConsoleImage& ConsoleImage::SetAllColor(const int backColor, const int foreColor
 const ConsoleImage& ConsoleImage::Render() const
 {
     //  do not use Character's render method
-    ConsolePoint2D currentPosition = _position;
+    ConsolePoint2D currentPosition = GetPosition();
     for (std::vector<ConsoleCharacter> row : _image) {
         for (ConsoleCharacter character : row) {
             if (character.GetCharacter() != '$') {
@@ -178,7 +178,7 @@ const ConsoleImage& ConsoleImage::Render() const
             }
             currentPosition.Set(currentPosition.GetX() + 1, currentPosition.GetY());
         }
-        currentPosition.Set(_position.GetX(), currentPosition.GetY() + 1);
+        currentPosition.Set(GetPosition().GetX(), currentPosition.GetY() + 1);
     }
     return*this;
 }
@@ -186,7 +186,7 @@ const ConsoleImage& ConsoleImage::Render() const
 const ConsoleImage& ConsoleImage::Render(const ConsolePoint2D startPosition) const
 {
     //  do not use Character's render method
-    ConsolePoint2D currentPosition = _position;
+    ConsolePoint2D currentPosition = GetPosition();
     for (std::vector<ConsoleCharacter> row : _image) {
         for (ConsoleCharacter character : row) {
             if (character.GetCharacter() != '$') {
@@ -197,7 +197,7 @@ const ConsoleImage& ConsoleImage::Render(const ConsolePoint2D startPosition) con
             }
             currentPosition.Set(currentPosition.GetX() + 1, currentPosition.GetY());
         }
-        currentPosition.Set(_position.GetX(), currentPosition.GetY() + 1);
+        currentPosition.Set(GetPosition().GetX(), currentPosition.GetY() + 1);
     }
     return*this;
 }
